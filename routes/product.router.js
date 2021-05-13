@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const { Product } = require("../models/product.model")
+const { extend } = require("lodash")
 
-var password = 'letsgo' ;
+var password = 'letsgo';
 
 function checkAuthentication(req, res, next){
   if(password == 'letsgo'){
@@ -37,5 +38,31 @@ router.route("/")
   }
 })
 
+router.param("productId", async (req, res, next, productId) => {
+  try{
+    const productWithId = await Product.findById(productId);
+    if(!productWithId){
+      return res.status(400).json({success:false, message: "Product not found"})
+    }
+    req.productWithId = productWithId;
+    next();
+  } catch {
+    res.status(400).json({success:false, message: "Product not found error"})
+  }
+})
+
+router.route("/:productId")
+.get(async (req, res) => {
+  let { productWithId } = req;
+  productWithId._v = undefined;
+  res.json({success: true, productWithId})
+})
+.post(async (req, res) => {
+  const productsUpdates = req.body;
+  let { productWithId } = req;
+  productWithId = extend(productWithId, productsUpdates)
+  productWithId = await productWithId.save()
+  res.json({success: true, productWithId }) 
+})
 
 module.exports = router;

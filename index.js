@@ -23,7 +23,7 @@ Product.find({})
 
 var myLogger = function(req, res, next){
   if(req.params){
-    console.log(req.params)
+    console.log("Req params", req.params)
     console.log('TIME', Date.now())
     next();
   }
