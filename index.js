@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
 });
 
 /**
- *  404 route handler
+ * 404 route handler
  *NOTE: DO not move. This should be the last route. Location dependent. 
  */
 app.use(routeNotFound)
