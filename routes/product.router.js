@@ -21,7 +21,6 @@ router.route("/")
 .get(async (req, res) => {
   try{
     const products = await Product.find({})
-    console.log(" your pros", products)
     res.json({success: true, products})
   } catch ( err ){
     res.status(500).json({success: false, message: "Unable to get products", errorMessage: err.message})
