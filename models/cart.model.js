@@ -1,30 +1,16 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-//Create DB entry with Mongoose
 const CartSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: "Cannot enter product without a name, please enter product name"
-  },
-  image: {
-    type: String,
-    required: "Cannot enter product without image, please enter product image"
-  },
-  price: {
-    type: Number,
-    required: "Cannot enter product without price, please enter product price"
-  },
   quantity: {
     type: Number
   },
-  description: {
-    type: String
-  },
-},
-{
-  timestamps: true,
-})
+  product: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: "No id provided. Adding none to cart.",
+    ref: 'Product',
+  }
+});
 
-const Cart = mongoose.model('Cart', CartSchema)
+const Cart = mongoose.model('Cart', CartSchema);
 
-module.exports = { Cart }
+module.exports = { Cart };

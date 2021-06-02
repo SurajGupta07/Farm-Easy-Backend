@@ -3,10 +3,9 @@ const cartRouter = express.Router();
 const { Cart } = require('../models/cart.model')
 
 cartRouter.route("/")
-.get(async (req, res) => {
+.get(async (req, res, next) => {
    try{
     const cart = await Cart.find({})
-    console.log(" your cart items", cart)
     res.json({success: true, cart})
   } catch ( err ){
     res.status(500).json({success: false, message: "Unable to get products", errorMessage: err.message})
@@ -20,6 +19,17 @@ cartRouter.route("/")
     res.json({ success: true, cartItem: savedCartItem })
   } catch(err) {
     res.status(500).json({success: false, message: 'unable to add products', errorMessage: err.message })
+  }
+})
+
+cartRouter.route("/item/delete/:id")
+.delete(async (req, res) => {
+  try{
+    const { id } = req.params;
+    const deletedItem = await Cart.findByIdAndDelete(id)
+    res.json({success:true, message: 'Item deleted'});
+  } catch(err) {
+    res.status(500).json({success: false, message: 'unable to delete product', errorMessage: err.message })
   }
 })
 
