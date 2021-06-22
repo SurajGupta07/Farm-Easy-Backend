@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const productRoute = require('./routes/product.router.js')
 const categoriesRoute = require('./routes/categories.router.js')
 const cartRoute = require('./routes/cart.router.js')
+const  wishlistRouter = require('./routes/wishlist.router.js')
 const { routeNotFound } = require('./middlewares/route-not-found.middleware')
 const { errorHandler } = require("./middlewares/error-handler.middleware")
 const { initializeDBConnection } = require("./db/db.connect.js")
@@ -33,6 +34,7 @@ var myLogger = function(req, res, next){
 app.use('/products',  productRoute)
 app.use('/categories', categoriesRoute)
 app.use('/cart', cartRoute)
+app.use('/wishlist', wishlistRouter)
 
 app.use(myLogger)
 

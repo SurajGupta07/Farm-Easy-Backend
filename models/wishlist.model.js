@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
-const CartSchema = new mongoose.Schema({
+const WishlistSchema = new Schema({
   name: {
     type: String,
     required: "Cannot enter product without a name, please enter product name"
@@ -16,14 +17,14 @@ const CartSchema = new mongoose.Schema({
   quantity: {
     type: Number
   },
-  description: {
+  availability: {
     type: String
-  },
-},
+  }
+}, 
 {
   timestamps: true,
-})
+});
 
-const Cart = mongoose.model('Cart', CartSchema);
+const Wishlist = mongoose.model('Wishlist', WishlistSchema);
 
-module.exports = { Cart };
+module.exports = { Wishlist };
