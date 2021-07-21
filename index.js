@@ -3,11 +3,11 @@ const bodyParser = require('body-parser')
 const cors = require('cors');
 const mongoose = require('mongoose');
 
-// const { Product } = require("./models/product.model.js")
 const productRoute = require('./routes/product.router.js')
 const categoriesRoute = require('./routes/categories.router.js')
 const cartRoute = require('./routes/cart.router.js')
-const  wishlistRouter = require('./routes/wishlist.router.js')
+const wishlistRouter = require('./routes/wishlist.router.js')
+const authRouter = require('./routes/auth.router.js')
 const { routeNotFound } = require('./middlewares/route-not-found.middleware')
 const { errorHandler } = require("./middlewares/error-handler.middleware")
 const { initializeDBConnection } = require("./db/db.connect.js")
@@ -20,23 +20,11 @@ const PORT = 3000;
 
 initializeDBConnection();
 
-// Product.find({})
-// .then(data => console.log(data))
-
-var myLogger = function(req, res, next){
-  if(req.params){
-    console.log("Req params", req.params)
-    console.log('TIME', Date.now())
-    next();
-  }
-}
-
 app.use('/products',  productRoute)
 app.use('/categories', categoriesRoute)
 app.use('/cart', cartRoute)
 app.use('/wishlist', wishlistRouter)
-
-app.use(myLogger)
+app.use(authRouter);
 
 app.get('/', (req, res) => {
   res.send({success:true, message: "FARM-EASY"})
