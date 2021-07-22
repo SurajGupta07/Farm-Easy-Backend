@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const cors = require('cors');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 
 const productRoute = require('./routes/product.router.js')
 const categoriesRoute = require('./routes/categories.router.js')
@@ -14,7 +15,8 @@ const { initializeDBConnection } = require("./db/db.connect.js")
 
 const app = express();
 app.use(bodyParser.json());
-app.use(cors())
+app.use(cors());
+app.use(cookieParser());
 
 const PORT = 3000;
 
