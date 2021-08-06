@@ -33,4 +33,15 @@ cartRouter.route("/:id")
   }
 })
 
+cartRouter.route("/increase/:id")
+.delete(async (req, res) => {
+  try{
+    const { _id } = req.params;
+    const product = await Cart.findById(_id)
+    console.log(product)
+  } catch(err) {
+    res.status(500).json({success: false, message: 'unable to update', errorMessage: err.message })
+  }
+})
+
 module.exports = cartRouter;
