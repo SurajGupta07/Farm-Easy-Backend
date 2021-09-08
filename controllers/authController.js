@@ -63,7 +63,7 @@ module.exports.login_post = async (req, res) => {
   try {
     const user = await User.login(email, password)
     const token = createToken(user._id);
-    res.status(200).json({email, password, token})
+    res.status(200).json({email, token})
   }
   catch (err) {
     const errors = handleErrors(err)

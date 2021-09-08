@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 
 const productRoute = require('./routes/product.router.js')
 const categoriesRoute = require('./routes/categories.router.js')
+const paymentRoute = require('./routes/payment.router.js')
 const cartRoute = require('./routes/cart.router.js')
 const wishlistRouter = require('./routes/wishlist.router.js')
 const authRouter = require('./routes/auth.router.js')
@@ -23,6 +24,7 @@ initializeDBConnection();
 
 app.use('/products',  productRoute)
 app.use('/categories', categoriesRoute)
+app.use('/payment', paymentRoute)
 app.use('/cart', requireAuth, cartRoute)
 app.use('/wishlist', requireAuth, wishlistRouter)
 app.use(authRouter);

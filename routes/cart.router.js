@@ -1,6 +1,9 @@
 const express = require('express');
 const cartRouter = express.Router();
 const { Cart } = require('../models/cart.model')
+const orderController = require("../controllers/orderController");
+
+let { orders } = orderController;
 
 cartRouter.route("/")
 .get(async (req, res, next) => {
@@ -38,7 +41,6 @@ cartRouter.route("/increase/:id")
   try{
     const { _id } = req.params;
     const product = await Cart.findById(_id)
-    console.log(product)
   } catch(err) {
     res.status(500).json({success: false, message: 'unable to update', errorMessage: err.message })
   }
